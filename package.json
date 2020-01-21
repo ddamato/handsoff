@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "compile": "node -r esm ./bin/compile.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/ddamato/handsoff/issues"
   },
-  "homepage": "https://github.com/ddamato/handsoff#readme"
+  "homepage": "https://github.com/ddamato/handsoff#readme",
+  "devDependencies": {
+    "esm": "^3.2.25",
+    "fs-extra": "^8.1.0",
+    "glob": "^7.1.6"
+  }
 }
