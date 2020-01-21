@@ -1,8 +1,12 @@
 import nunjucks from 'nunjucks';
 import { readFileSync } from 'fs';
 import path from 'path';
+import MarkdownIt from 'markdown-it';
 import database from '../../../gen/database.json';
 
+const md = new MarkdownIt();
+const readmeContent = readFileSync(path.resolve(__dirname, '..', '..', '..', 'README.md'), 'utf-8');
+const readme = md.render(readmeContent);
 const template = readFileSync(path.resolve(__dirname, '..', 'templates', 'index.html'), 'utf-8');
 const renderTemplate = nunjucks.compile(template);
 
@@ -16,5 +20,6 @@ export default async function render(ctx) {
     base: ctx.state.base,
     tagList: Object.keys(database),
     content,
+    readme,
   });
 }

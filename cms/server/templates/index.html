@@ -37,12 +37,7 @@
           </header>
           <textarea class="editor">{{ content.value }}</textarea>
         {% else %}
-          <header>
-            <h1>Welcome to the Content Management System</h1>
-          </header>
-          <div>
-            <p>Please select a tag from the list to begin.</p>
-          </div>
+          {{ readme | safe }}
         {% endif %}
       </section>
     </main>

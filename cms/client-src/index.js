@@ -10,8 +10,9 @@ filterInput.addEventListener('input', (ev) => {
 });
 
 function initSimpleMDE() {
-  const simplemde = new SimpleMDE({ element: document.querySelector('.editor'), autosave: true });
-  if (simplemde) {
+  const element = document.querySelector('.editor');
+  if (element) {
+    const simplemde = new SimpleMDE({ element, autosave: true });
     simplemde.codemirror.on("change", () => {
       const { pathname } = window.location;
       updateDatabase(`cms-api${pathname}`, simplemde.value());
