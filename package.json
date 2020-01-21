@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ddamato/handsoff#readme",
   "devDependencies": {
+    "concurrently": "^5.0.2",
     "esm": "^3.2.25",
     "fs-extra": "^8.1.0",
     "glob": "^7.1.6",
