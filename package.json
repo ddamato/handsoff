@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "compile": "node -r esm ./bin/compile.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "cms": "node -r esm ./cms/server/index.js"
+    "cms": "node -r esm ./cms/server/index.js",
+    "start": "concurrently \"npm run watch\" \"npm run cms\"",
+    "watch": "nodemon --watch web -e .html,.css,.js --exec \"npm run compile\""
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "koa-router": "^7.4.0",
     "koa-static-server": "^1.4.0",
     "markdown-it": "^10.0.0",
+    "nodemon": "^2.0.2",
     "nunjucks": "^3.2.0",
     "open": "^7.0.0"
   }
