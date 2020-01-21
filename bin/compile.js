@@ -27,12 +27,11 @@ async function copyWebFiles() {
 function initTag(value) {
   return {
     value,
-    type: 'text',
     pages: [],
   };
 }
 
-async function compile() {
+export default async function compile() {
   let database = {};
   try {
     // Get the existing data

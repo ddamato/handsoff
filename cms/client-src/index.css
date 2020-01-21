@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+:root {
+  --cms-accent-color: rebeccapurple;
+  --cms-onAccent-color: white;
+}
+
 body {
   margin: 0;
   font-family: 'Sarabun', sans-serif;
@@ -19,18 +24,31 @@ nav {
 .filterInput {
   display: block;
   font: inherit;
-  margin-bottom: 1rem;
   padding: 4px;
 }
 
 .tagList {
   list-style: none;
-  margin: 0;
+  margin: 1rem 0;
   padding: 0;
+}
+
+.tagList a {
+  color: var(--cms-accent-color);
 }
 
 .tagList .exclude {
   display: none;
+}
+
+.buildButton {
+  background-color: var(--cms-accent-color);
+  color: var(--cms-onAccent-color);
+  border: 0;
+  font: inherit;
+  padding: 4px 8px;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 section {
@@ -40,4 +58,29 @@ section {
 
 section h1 {
   margin: 0;
+  color: var(--cms-accent-color);
+}
+
+section h1:before {
+  content: '{{ '
+}
+
+section h1:after {
+  content: ' }}'
+}
+
+.pageList {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+  font-size: .8rem;
+}
+
+.page {
+  padding: 4px 8px;
+  border-radius: 2px;
+  background-color: var(--cms-onAccent-color);
+  color: var(--cms-accent-color);
+  border: 1px solid var(--cms-accent-color);
+  display: inline-block;
 }
