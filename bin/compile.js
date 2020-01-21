@@ -20,6 +20,10 @@ async function writeFile(filePath, fileContents) {
   await fs.writeFileSync(filePath, fileContents, 'utf-8');
 }
 
+async function copyWebFiles() {
+  await fs.copySync(HTML_WEB_DIR, HTML_DIST_DIR, { overwrite: true });
+}
+
 function initTag(value) {
   return {
     value,
@@ -38,6 +42,9 @@ async function compile() {
     // First time running; build the database later
     console.info(`Building: ${DATABASE_JSON_PATH}`);
   }
+
+  // Copy web files to /dist
+  copyWebFiles();
 
   // Get the .html files from the /web directory
   const htmlFilePaths = await getHtmlFilePaths(HTML_WEB_DIR);
