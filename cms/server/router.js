@@ -12,18 +12,19 @@ export default new Router()
   .get('/cms-compile', compileTags)
   .get('/cms-visit', visitSite);
 
-function getDatabase() {
+async function getDatabase() {
   try {
     return require(DATABASE_JSON_PATH);
   } catch (err) {
-    throw new Error('Please run "npm run compile" first');
+    await compile();
+    return await getDatabase();
   }
 }
 
-function updateDatabase(ctx) {
+async function updateDatabase(ctx) {
 
   if (!ctx.database) {
-    ctx.database = getDatabase();
+    ctx.database = await getDatabase();
   }
 
   const { body }  = ctx.request;
@@ -42,12 +43,12 @@ async function writeFile(filePath, fileContents) {
 
 async function compileTags(ctx) {
   if (!ctx.database) {
-    ctx.database = getDatabase();
+    ctx.database = awaitgetDatabase();
   }
 
   await writeFile(DATABASE_JSON_PATH, JSON.stringify(ctx.database));
   await compile();
-  getDatabase();
+  await getDatabase();
   ctx.status = 200;
   ctx.body = JSON.stringify(ctx.database);
 }
