@@ -1,11 +1,14 @@
 import path from 'path';
 import fs from 'fs-extra';
 import glob from 'glob';
+import MarkdownIt from 'markdown-it';
 
 const HTML_WEB_DIR = path.resolve(__dirname, '..', 'web');
 const HTML_DIST_DIR = path.resolve(__dirname, '..', 'dist');
 const DATABASE_JSON_PATH = path.resolve(__dirname, '..', 'gen', 'database.json');
 const TEMPLATE_TAG_REGEX = /{{\s*([\w\.]+)\s*}}/g;
+
+const md = new MarkdownIt();
 
 async function getHtmlFilePaths(directory) {
   return await glob.sync(`${directory}/**/*.html`);
@@ -64,12 +67,18 @@ export default async function compile() {
         database[tagName] = initTag(match);
       }
       
+      const { pages, value } = database[tagName];
+
       // If the page isn't listed in the pages key, add it
-      const { pages } = database[tagName];
       Array.isArray(pages) && !~pages.indexOf(newFilePath) && pages.push(newFilePath);
 
-      // Return the replacement value
-      return database[tagName].value;
+      // If the value contains line breaks, render as full markdown
+      if (/\n/.test(value)) {
+        return md.render(value);
+      }
+
+      // Otherwise, render inline text
+      return md.renderInline(value);
     });
 
     // Write the file

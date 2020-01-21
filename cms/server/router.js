@@ -43,7 +43,7 @@ async function writeFile(filePath, fileContents) {
 
 async function compileTags(ctx) {
   if (!ctx.database) {
-    ctx.database = awaitgetDatabase();
+    ctx.database = await getDatabase();
   }
 
   await writeFile(DATABASE_JSON_PATH, JSON.stringify(ctx.database));
