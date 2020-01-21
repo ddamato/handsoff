@@ -6,10 +6,45 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Sarabun:400,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="static/index.css">
     <script src="static/index.js" defer></script>
   </head>
   <body>
-    
+    <main>
+      <nav>
+        <input type="text" placeholder="Filter Tag List" class="filterInput"/>
+        <ul class="tagList">
+          {% for tag in tagList %}
+            <li class="tag" data-tag="{{ tag }}">
+              <a href="{{ tag }}">{{ tag }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+      <section class="contentEditor">
+        {% if content %}
+          <header>
+            <h1>{{ content.name }}</h1>
+            <ul class="pageList">
+              {% for page in content.pages %}
+                <li class="page">{{ page }}</li>
+              {% endfor %}
+            </ul>
+          </header>
+          <div class="editor">
+            {{ content.type }}
+          </div>
+          <button class="saveButton">Save</button>
+        {% else %}
+          <header>
+            <h1>Welcome to the Content Management System</h1>
+          </header>
+          <div>
+            <p>Please select a tag from the list to begin.</p>
+          </div>
+        {% endif %}
+      </section>
+    </main>
   </body>
 </html>
