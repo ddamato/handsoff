@@ -1,0 +1,19 @@
+{
+  "name": "handsoff",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddamato/handsoff.git"
+  },
+  "author": "Donnie D'Amato",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ddamato/handsoff/issues"
+  },
+  "homepage": "https://github.com/ddamato/handsoff#readme"
+}

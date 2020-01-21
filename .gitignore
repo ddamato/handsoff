@@ -1,0 +1,8 @@
+# Files
+.DS_Store
+handsoff.code-workspace
+
+# Directories
+/node_modules
+/gen
+/dist
