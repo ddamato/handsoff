@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "compile": "node -r esm ./bin/compile.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cms": "node -r esm ./cms/server/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,11 @@
   "devDependencies": {
     "esm": "^3.2.25",
     "fs-extra": "^8.1.0",
-    "glob": "^7.1.6"
+    "glob": "^7.1.6",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa-static-server": "^1.4.0",
+    "nunjucks": "^3.2.0"
   }
 }
