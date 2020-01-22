@@ -34,16 +34,26 @@ function initTag(value) {
   };
 }
 
-export default async function compile() {
+function prepareActive(database) {
+  for (const tag in database) database[tag].active = false;
+}
+
+function purgeInactive(database) {
+  for (const tag in database) !database[tag].active && delete database[tag];
+}
+
+export default async function compile(purge) {
   let database = {};
   try {
     // Get the existing data
     database = require(DATABASE_JSON_PATH);
-    console.info(`Reading: ${DATABASE_JSON_PATH}`);
   } catch (err) {
     // First time running; build the database later
-    console.info(`Building: ${DATABASE_JSON_PATH}`);
+    console.info(`Awaiting at ${DATABASE_JSON_PATH}`);
   }
+
+  // Prepare to check active tags
+  prepareActive(database);
 
   // Copy web files to /dist
   copyWebFiles();
@@ -67,6 +77,9 @@ export default async function compile() {
         database[tagName] = initTag(match);
       }
       
+      // Set active to true for purging
+      database[tagName].active = true;
+
       const { pages, value } = database[tagName];
 
       // If the page isn't listed in the pages key, add it
@@ -83,14 +96,23 @@ export default async function compile() {
 
     // Write the file
     writeFile(HTML_DIST_DIR + newFilePath, replacedHtml);
-
   });
 
   // Ensure all the files have been processed
   await Promise.all(filePromises);
 
+  // Remove inactive tags
+  if (purge) {
+    purgeInactive(database);
+  }
+
   // Save updated database
   writeFile(DATABASE_JSON_PATH, JSON.stringify(database));
+
+  // Console output for make-runnable
+  return `Database built at ${DATABASE_JSON_PATH}`;
 }
 
-compile();
+require('make-runnable/custom')({
+  printOutputFrame: false
+});
