@@ -18,7 +18,7 @@ export default async function render(ctx) {
   }
   ctx.body = renderTemplate.render({
     base: ctx.state.base,
-    tagList: Object.keys(database),
+    tagList: Object.keys(database).sort(),
     content,
     readme,
   });

@@ -8,7 +8,7 @@ const HTML_DIST_DIR = path.resolve(__dirname, '..', 'dist');
 const DATABASE_JSON_PATH = path.resolve(__dirname, '..', 'gen', 'database.json');
 const TEMPLATE_TAG_REGEX = /{{\s*([\w\.]+)\s*}}/g;
 
-const md = new MarkdownIt();
+const md = new MarkdownIt({ html: true });
 
 async function getHtmlFilePaths(directory) {
   return await glob.sync(`${directory}/**/*.html`);
