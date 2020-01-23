@@ -3,13 +3,33 @@
 }
 
 :root {
-  --cms-accent-color: rebeccapurple;
-  --cms-onAccent-color: white;
+  --cms-accent-color: #e91e63;
+  --cms-onAccent-color: #fff;
+  --code-backgroundColor: #eee;
 }
 
 body {
   margin: 0;
   font-family: 'Sarabun', sans-serif;
+}
+
+.readme code {
+  background-color: var(--code-backgroundColor);
+  padding: 2px 0;
+  margin: 0 1ch;
+  box-shadow: 1ch 0 0 var(--code-backgroundColor), -1ch 0 0 var(--code-backgroundColor);
+  display: inline-block;
+  border-radius: 3px;
+}
+
+.readme a {
+  color: var(--cms-accent-color);
+}
+
+.readme img, .readme table {
+  border: 1px solid var(--cms-accent-color);
+  padding: 1rem;
+  max-width: 100%;
 }
 
 main {

@@ -4,7 +4,7 @@ import path from 'path';
 import MarkdownIt from 'markdown-it';
 import database from '../../../gen/database.json';
 
-const md = new MarkdownIt();
+const md = new MarkdownIt({ html: true });
 const readmeContent = readFileSync(path.resolve(__dirname, '..', '..', '..', 'README.md'), 'utf-8');
 const readme = md.render(readmeContent);
 const template = readFileSync(path.resolve(__dirname, '..', 'templates', 'index.html'), 'utf-8');

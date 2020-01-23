@@ -37,7 +37,7 @@
           </header>
           <textarea class="editor">{{ content.value }}</textarea>
         {% else %}
-          {{ readme | safe }}
+          <div class="readme">{{ readme | safe }}</div>
         {% endif %}
       </section>
     </main>
