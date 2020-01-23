@@ -1,6 +1,4 @@
 # handsoff
-
-## About
 I wanted to create a CMS that was based off of [Vapid's idea](https://medium.com/@hellovapid/hello-vapid-db3709ad5b82), just without the all the errors when trying to install. **handsoff** is an attempt to make it super simple to manage a small site using a CMS that is generated with the template tags found in the HTML files. In a way, it's a really simple static site generator because the files you supply are nearly static from the beginning. 😎
 
 ## Quick start
