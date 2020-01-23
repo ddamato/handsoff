@@ -61,7 +61,7 @@ export default function compile(purge) {
   // Get the .html files from the /web directory
   const htmlFilePaths = getHtmlFilePaths(HTML_WEB_DIR);
   
-  // For each path, create a promise
+  // For each path,
   htmlFilePaths.forEach((htmlPath) => {
     // Create new file path
     const newFilePath = htmlPath.replace(HTML_WEB_DIR, '');

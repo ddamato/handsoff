@@ -19,6 +19,7 @@ main {
 
 nav {
   padding: 1rem;
+  overflow-y: auto;
 }
 
 .filterInput {
@@ -54,6 +55,7 @@ nav {
 section {
   flex: 1;
   padding: 1rem;
+  overflow-y: auto;
 }
 
 section h1 {
