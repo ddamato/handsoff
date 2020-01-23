@@ -10,21 +10,21 @@ const TEMPLATE_TAG_REGEX = /{{\s*([\w\.]+)\s*}}/g;
 
 const md = new MarkdownIt({ html: true });
 
-async function getHtmlFilePaths(directory) {
-  return await glob.sync(`${directory}/**/*.html`);
+function getHtmlFilePaths(directory) {
+  return glob.sync(`${directory}/**/*.html`);
 }
 
-async function getFileContents(path) {
-  return await fs.readFileSync(path, 'utf-8');
+function getFileContents(path) {
+  return fs.readFileSync(path, 'utf-8');
 }
 
-async function writeFile(filePath, fileContents) {
-  await fs.ensureFileSync(filePath);
-  await fs.writeFileSync(filePath, fileContents, 'utf-8');
+function writeFile(filePath, fileContents) {
+  fs.ensureFileSync(filePath);
+  fs.writeFileSync(filePath, fileContents, 'utf-8');
 }
 
-async function copyWebFiles() {
-  await fs.copySync(HTML_WEB_DIR, HTML_DIST_DIR, { overwrite: true });
+function copyWebFiles() {
+  fs.copySync(HTML_WEB_DIR, HTML_DIST_DIR, { overwrite: true });
 }
 
 function initTag(value) {
@@ -42,7 +42,7 @@ function purgeInactive(database) {
   for (const tag in database) !database[tag].active && delete database[tag];
 }
 
-export default async function compile(purge) {
+export default function compile(purge) {
   let database = {};
   try {
     // Get the existing data
@@ -59,15 +59,15 @@ export default async function compile(purge) {
   copyWebFiles();
 
   // Get the .html files from the /web directory
-  const htmlFilePaths = await getHtmlFilePaths(HTML_WEB_DIR);
+  const htmlFilePaths = getHtmlFilePaths(HTML_WEB_DIR);
   
   // For each path, create a promise
-  const filePromises = htmlFilePaths.map(async (htmlPath) => {
+  htmlFilePaths.forEach((htmlPath) => {
     // Create new file path
     const newFilePath = htmlPath.replace(HTML_WEB_DIR, '');
 
     // Read the contents of the .html file
-    const templatedHtml = await getFileContents(htmlPath);
+    const templatedHtml = getFileContents(htmlPath);
 
     // Search for tags in the string, replace with content
     const replacedHtml = templatedHtml.replace(TEMPLATE_TAG_REGEX, (match, tagName) => {
@@ -97,9 +97,6 @@ export default async function compile(purge) {
     // Write the file
     writeFile(HTML_DIST_DIR + newFilePath, replacedHtml);
   });
-
-  // Ensure all the files have been processed
-  await Promise.all(filePromises);
 
   // Remove inactive tags
   if (purge) {

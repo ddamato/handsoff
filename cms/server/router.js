@@ -12,19 +12,19 @@ export default new Router()
   .get('/cms-compile', compileTags)
   .get('/cms-visit', visitSite);
 
-async function getDatabase() {
+function getDatabase() {
   try {
     return require(DATABASE_JSON_PATH);
   } catch (err) {
-    await compile();
-    return await getDatabase();
+    compile();
+    return getDatabase();
   }
 }
 
-async function updateDatabase(ctx) {
+function updateDatabase(ctx) {
 
   if (!ctx.database) {
-    ctx.database = await getDatabase();
+    ctx.database = getDatabase();
   }
 
   const { body }  = ctx.request;
@@ -36,19 +36,19 @@ async function updateDatabase(ctx) {
   ctx.body = JSON.stringify(body);
 }
 
-async function writeFile(filePath, fileContents) {
-  await fs.ensureFileSync(filePath);
-  await fs.writeFileSync(filePath, fileContents, 'utf-8');
+function writeFile(filePath, fileContents) {
+  fs.ensureFileSync(filePath);
+  fs.writeFileSync(filePath, fileContents, 'utf-8');
 }
 
-async function compileTags(ctx) {
+function compileTags(ctx) {
   if (!ctx.database) {
-    ctx.database = await getDatabase();
+    ctx.database = getDatabase();
   }
 
-  await writeFile(DATABASE_JSON_PATH, JSON.stringify(ctx.database));
-  await compile();
-  await getDatabase();
+  writeFile(DATABASE_JSON_PATH, JSON.stringify(ctx.database));
+  compile();
+  getDatabase();
   ctx.status = 200;
   ctx.body = JSON.stringify(ctx.database);
 }
